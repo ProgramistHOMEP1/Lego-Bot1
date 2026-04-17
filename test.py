@@ -59,6 +59,7 @@ def paste_picture_to_wishlist(path_to_picture,number,path_to_wishlist):
 
 
 
+
 # shablon = Image.open("rezult.png")
 # font = ImageFont.truetype("Fonts/three.ttf",size=30)
 # draw = ImageDraw.Draw(shablon)

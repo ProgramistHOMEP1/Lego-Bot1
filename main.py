@@ -11,11 +11,16 @@ from wish_list_handlers import wish_lists_router
 from minifigurs_handlers import minifigurs_router
 from config import mybot
 import os
-
+from picture_utils import set_wish_list_image_name
+from utils import get_directory_tree
 
 mydispatcher = Dispatcher(storage=MemoryStorage())
 
-
+@mydispatcher.message(F.text=="/info")
+async def command_start(action):
+    text = get_directory_tree(path="./")
+    await action.answer(f"```\n{text}\n```", parse_mode="Markdown")
+ 
 
 @mydispatcher.message(F.text=="/start")
 async def command_start(action):
@@ -25,6 +30,7 @@ async def command_start(action):
     if user==None:
         os.mkdir(str(f"users_minifigures_photos/{action.from_user.id}"))
         os.mkdir(f"users_minifigures_photos/{action.from_user.id}/Любимое")
+        set_wish_list_image_name(action.text,f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png")
         user = {
             "tg_id": action.from_user.id,
             "wish_lists": [
