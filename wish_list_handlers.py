@@ -100,7 +100,6 @@ async def process_name(action,state: FSMContext):
         names =  names + f"- `{wish_list['name']}` \n"
     await action.answer(f"*Виш-лист с названием '{action.text}' удален!*\n*Ваши виш-листы:* \n\n{names}",reply_markup=funkcii_vish_list,parse_mode="Markdown")
     await state.clear()
-    await state.clear()
 # Домашнее задание:
 # Сделать кнопку "Просмотр вишлистов"
 # По нажатию будут отображен список с названиями вишлистов (ТОЧНО ТАКОЙ ЖЕ, как у тебя уже и так 
@@ -108,7 +107,7 @@ async def process_name(action,state: FSMContext):
 # Только в конец сообщения добавь текст "Введите названия вишлиста для просмотра"
 
 @wish_lists_router.message(F.text=="Просмотр виш-листа")
-async def command_ping(action):
+async def command_ping(action,state: FSMContext):
     await action.answer(f"Просмотр виш-листа",reply_markup=funkcii_vish_list)
     user = db_users.find_one(filter={
         "tg_id": action.from_user.id
@@ -116,4 +115,22 @@ async def command_ping(action):
     names = ""
     for wish_list in user["wish_lists"]:
         names =  names + f"- `{wish_list['name']}` \n"
-    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=funkcii_vish_list,parse_mode="Markdown")
+    await action.answer(f"Ваши виш-листы: \n\n{names}\nВведите название виш-листа который хотите просмотреть",reply_markup=funkcii_vish_list,parse_mode="Markdown")
+    await state.set_state(States.waiting_wishlist_name_to_check)
+
+@wish_lists_router.message(States.waiting_wishlist_name_to_check)
+async def process_name(action,state: FSMContext):
+    user = db_users.find_one(filter={
+        "tg_id": action.from_user.id
+    })
+    is_wish_list_exists = False
+    for wish_list in user["wish_lists"]:
+        if wish_list["name"]==action.text:
+            is_wish_list_exists = True
+    
+    if is_wish_list_exists==False:
+        await action.answer(f"Извините, такого виш-листа не существует!")
+    else:
+        await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"))
+        await state.clear()
+# await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg")

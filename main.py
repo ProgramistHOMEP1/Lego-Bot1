@@ -45,6 +45,11 @@ async def command_start(action):
     await action.answer(f"Приветствую Вас, {action.from_user.first_name}\nВаш id: {action.from_user.id}")
     await action.answer(f"Главное меню",reply_markup=glavnie_knopotki)
 
+# Домашнее задание:
+# Сделать функцию для кнопки "просмотр вишлиста"
+# По её нажатию спрашивать пользователя название вишлиста, который он хочет просмотреть. После отправлять из этого вишлиста картинку
+
+
 @mydispatcher.message(F.text=="Главное меню")
 async def command_ping(action):
     await action.answer(f"Главное меню",reply_markup=glavnie_knopotki)
