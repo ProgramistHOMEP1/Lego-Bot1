@@ -13,7 +13,7 @@ from data_baze import db_users,States
 from pprint import pprint
 from config import mybot
 import os
-from picture_utils import crop_to_rectangle
+from picture_utils import crop_to_rectangle, paste_picture_to_wishlist
 
 minifigurs_router = Router()
 
@@ -56,5 +56,11 @@ async def process_name(action,state: FSMContext):
     number_my_pic = len(os.listdir(f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}"))
     await mybot.download_file(user_picture.file_path,f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{number_my_pic}.png")
     crop_to_rectangle(source_picture_path=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{number_my_pic}.png", result_picture_path=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{number_my_pic}.png")
+
+    paste_picture_to_wishlist(
+        path_to_picture=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{number_my_pic}.png",
+        number=number_my_pic,
+        path_to_wishlist=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/wishlist.png")
+
     await state.clear()
     await action.answer(f"Минифигурка успешно добавлена в виш-лист «{full_data['wish_list_name']}»! ")
