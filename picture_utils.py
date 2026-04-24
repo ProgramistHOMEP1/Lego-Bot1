@@ -9,9 +9,9 @@ def set_wish_list_image_name(text,path_to_save):
     centre = text.center(21)
 
     if len(text)%2==0:
-        draw.text((-57, 80), centre, font=font, fill=(0,0,0))
+        draw.text((-57, 57), centre, font=font, fill=(0,0,0))
     else:
-        draw.text((-33, 80), centre, font=font, fill=(0,0,0))
+        draw.text((-35, 57), centre, font=font, fill=(0,0,0))
 
     shablon.save(path_to_save)
 
