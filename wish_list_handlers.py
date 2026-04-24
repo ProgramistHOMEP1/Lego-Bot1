@@ -81,7 +81,7 @@ async def process_name(action,state: FSMContext):
             find_wish_list = wish_list
             break
     if find_wish_list=="":
-            await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пиши грамотно, балбес!")
+            await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пиши грамотно, балбес!",reply_markup=funkcii_vish_list)
             return None
     user["wish_lists"].remove(find_wish_list)
 # ------------Запись новой версии виш-листов------------
@@ -129,8 +129,8 @@ async def process_name(action,state: FSMContext):
             is_wish_list_exists = True
     
     if is_wish_list_exists==False:
-        await action.answer(f"Извините, такого виш-листа не существует!")
+        await action.answer(f"Извините, такого виш-листа не существует!",reply_markup=funkcii_vish_list)
     else:
-        await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"))
+        await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png",reply_markup=funkcii_vish_list))
         await state.clear()
 # await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg")

@@ -41,7 +41,7 @@ async def process_name(action,state: FSMContext):
             find_wish_list = wish_list
             break
     if find_wish_list=="":
-            await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пеши граматно, балбес!")
+            await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пеши граматно, балбес!",reply_markup=funkcii_figurki)
             return None
     await action.answer(f"Отправьте фотографию минифигурки, которую хотите добавить в виш-лист «{action.text}»",reply_markup=funkcii_figurki)
     await state.set_state(States.waiting_minifigure_picture_to_add)
@@ -63,4 +63,4 @@ async def process_name(action,state: FSMContext):
         path_to_wishlist=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/wishlist.png")
 
     await state.clear()
-    await action.answer(f"Минифигурка успешно добавлена в виш-лист «{full_data['wish_list_name']}»! ")
+    await action.answer(f"Минифигурка успешно добавлена в виш-лист «{full_data['wish_list_name']}»!",reply_markup=funkcii_figurki)
