@@ -89,7 +89,7 @@ async def process_name(action,state: FSMContext):
     await state.set_state(States.waiting_minifigure_number_to_delite)
     await state.update_data(wish_list_name=action.text)
 
-@minifigurs_router.message(States.wawaiting_minifigure_number_to_delite)
+@minifigurs_router.message(States.waiting_minifigure_number_to_delite)
 async def process_name(action,state: FSMContext):
     full_data = await state.get_data()
     await action.answer(f"Фигурка с номером {action.text} в виш-листе {full_data['wish_list_name']}",reply_markup=funkcii_figurki)
