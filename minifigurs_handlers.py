@@ -34,7 +34,7 @@ async def process_name(action,state: FSMContext):
     user = db_users.find_one(filter={
         "tg_id": action.from_user.id
     })
-# -------------Само удалиние-------------
+# -------------Добавление фигурки в виш лист-------------
     find_wish_list = ""
     for wish_list in user["wish_lists"]:
         if wish_list["name"]==action.text:
@@ -64,3 +64,28 @@ async def process_name(action,state: FSMContext):
 
     await state.clear()
     await action.answer(f"Минифигурка успешно добавлена в виш-лист «{full_data['wish_list_name']}»!",reply_markup=funkcii_figurki)
+
+
+@minifigurs_router.message(F.text=="Удалить фигурку из виш-листа")
+async def process_name(action,state: FSMContext):
+    await action.answer(f"Выберите виш-лист из которого хотите удалить минифигурку",reply_markup=funkcii_figurki)
+    user = db_users.find_one(filter={
+        "tg_id": action.from_user.id
+    })
+    names = ""
+    for wish_list in user["wish_lists"]:
+        names =  names + f"- `{wish_list['name']}` \n"
+    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=funkcii_figurki,parse_mode="Markdown")
+    await state.set_state(States.waiting_wishlist_name_to_delite_minifigure)
+
+@minifigurs_router.message(States.waiting_wishlist_name_to_delite_minifigure)
+async def process_name(action,state: FSMContext):
+    await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_figurki)
+    await action.answer(f"Введите номер фигурки которую хотите удалить",reply_markup=funkcii_figurki)
+    await state.set_state(States.waiting_minifigure_number_to_delite)
+    await state.update_data(wish_list_name=action.text)
+
+@minifigurs_router.message(States.wawaiting_minifigure_number_to_delite)
+async def process_name(action,state: FSMContext):
+    full_data = await state.get_data()
+    await action.answer(f"Фигурка с номером {action.text} в виш-листе {full_data['wish_list_name']}",reply_markup=funkcii_figurki)

@@ -131,6 +131,6 @@ async def process_name(action,state: FSMContext):
     if is_wish_list_exists==False:
         await action.answer(f"Извините, такого виш-листа не существует!",reply_markup=funkcii_vish_list)
     else:
-        await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png",reply_markup=funkcii_vish_list))
+        await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_vish_list)
         await state.clear()
 # await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg")
