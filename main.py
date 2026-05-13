@@ -61,13 +61,6 @@ async def command_ping(action):
 async def command_ping(action):
     await action.answer(f"Функции минифигурок",reply_markup=funkcii_figurki)
 # --------------------------------КНОПОЧКИ ФИГУРОК----------------------------------
-# @mydispatcher.message(F.text=="Добавить фигурку в виш-лист")
-# async def command_ping(action):
-#     await action.answer(f"Добавить фигурку в виш-лист",reply_markup=funkcii_figurki)
-
-@mydispatcher.message(F.text=="Удалить фигурку из виш-листа")
-async def command_ping(action):
-    await action.answer(f"Удалить фигурку из виш-листа",reply_markup=funkcii_figurki)
 
 
 

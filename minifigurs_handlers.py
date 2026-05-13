@@ -17,6 +17,10 @@ from picture_utils import crop_to_rectangle, paste_picture_to_wishlist
 
 minifigurs_router = Router()
 
+@minifigurs_router.message(F.text=="Функции минифигурок")
+async def command_ping(action):
+    await action.answer(f"Функции минифигурок",reply_markup=funkcii_figurki)
+
 @minifigurs_router.message(F.text=="Добавить фигурку в виш-лист")
 async def process_name(action,state: FSMContext):
     await action.answer(f"Выберите виш-лист в который хотите добавить минифигурку",reply_markup=funkcii_figurki)
