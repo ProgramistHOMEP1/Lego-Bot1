@@ -1,6 +1,6 @@
 import asyncio
 from aiogram import Router, F
-from aiogram.types import BotCommand, FSInputFile
+from aiogram.types import BotCommand, FSInputFile, Message
 from aiogram import types
 from random import choice
 from random import randint,choice
@@ -83,8 +83,9 @@ async def process_name(action,state: FSMContext):
     await state.set_state(States.waiting_wishlist_name_to_delite_minifigure)
 
 @minifigurs_router.message(States.waiting_wishlist_name_to_delite_minifigure)
-async def process_name(action,state: FSMContext):
-    await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_figurki)
+async def process_name(action: Message,state: FSMContext):
+    wishlist_massege = await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_figurki)
+    await state.update_data(wishlist_massege=wishlist_massege)
     await action.answer(f"Введите номер фигурки которую хотите удалить",reply_markup=funkcii_figurki)
     await state.set_state(States.waiting_minifigure_number_to_delite)
     await state.update_data(wish_list_name=action.text)
@@ -92,4 +93,5 @@ async def process_name(action,state: FSMContext):
 @minifigurs_router.message(States.waiting_minifigure_number_to_delite)
 async def process_name(action,state: FSMContext):
     full_data = await state.get_data()
+    full_data['wishlist_massege'].delete()
     await action.answer(f"Фигурка с номером {action.text} в виш-листе {full_data['wish_list_name']}",reply_markup=funkcii_figurki)
