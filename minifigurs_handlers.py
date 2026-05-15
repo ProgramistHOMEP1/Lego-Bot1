@@ -97,7 +97,7 @@ async def process_name(action,state: FSMContext):
     # full_data['wishlist_massege'].delete() # УДАЛЕНИЕ СООБЩЕНИЯ
     path = (f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}")
     all_wish_list_files = (os.listdir(path))
-    file_name = all_wish_list_files[int(action.text)-1]
+    file_name = all_wish_list_files[int(action.text)]
     os.remove(f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{file_name}")
     print(file_name)
     await action.answer(f"Фигурка с номером {action.text} из виш-листа {full_data['wish_list_name']} удалена!",reply_markup=funkcii_figurki)
