@@ -1,7 +1,7 @@
 from PIL import Image
 from PIL import ImageDraw, ImageFont
 from config import shablon_picture_matrix, path_to_shablon, path_to_prozrschniy_shablon
-
+import os
 # sours_shablon = Image.open("Sistemimages/шаблонО3.png")
 # prozrschniy_shablon =  Image.open("Sistemimages/Прозрачный шаблон.png")
 # shablon = Image.open("Sistemimages/шаблонО3.png")
@@ -43,19 +43,19 @@ from config import shablon_picture_matrix, path_to_shablon, path_to_prozrschniy_
 # Функция будет принимать Путь до картинки, которую вставлять и номер, на которой вставлять
 
 
-def paste_picture_to_wishlist(path_to_picture,number,path_to_wishlist):
-    wishlist = Image.open(path_to_wishlist)
-    image = Image.open(path_to_picture)
-    prozrschniy_shablon =  Image.open(path_to_prozrschniy_shablon)
-    qwer = image.resize((194,194))
+# def paste_picture_to_wishlist(path_to_picture,number,path_to_wishlist):
+#     wishlist = Image.open(path_to_wishlist)
+#     image = Image.open(path_to_picture)
+#     prozrschniy_shablon =  Image.open(path_to_prozrschniy_shablon)
+#     qwer = image.resize((194,194))
 
-    wishlist.paste(qwer,shablon_picture_matrix[number])
-    qwer = Image.alpha_composite(wishlist,prozrschniy_shablon)
+#     wishlist.paste(qwer,shablon_picture_matrix[number])
+#     qwer = Image.alpha_composite(wishlist,prozrschniy_shablon)
     
-    font = ImageFont.truetype("Fonts/three.ttf",size=30)
-    draw = ImageDraw.Draw(qwer)
-    draw.text(shablon_picture_matrix[number], str(number), font=font, fill=(255,255,255), stroke_fill=(0,0,0), stroke_width=2)
-    qwer.save(path_to_wishlist)
+#     font = ImageFont.truetype("Fonts/three.ttf",size=30)
+#     draw = ImageDraw.Draw(qwer)
+#     draw.text(shablon_picture_matrix[number], str(number), font=font, fill=(255,255,255), stroke_fill=(0,0,0), stroke_width=2)
+#     qwer.save(path_to_wishlist)
 
 
 
@@ -84,11 +84,11 @@ def paste_picture_to_wishlist(path_to_picture,number,path_to_wishlist):
 #     number=3,
 #     path_to_wishlist="rezult.png"
 # )
-paste_picture_to_wishlist(
-    path_to_picture="users_minifigures_photos/6964533009/Любимое/5.png",
-    number=5,
-    path_to_wishlist="rezult.png"
-)
+# paste_picture_to_wishlist(
+#     path_to_picture="users_minifigures_photos/6964533009/Любимое/5.png",
+#     number=5,
+#     path_to_wishlist="rezult.png"
+# )
 
 
 # def set_wish_list_image_name(path_to_template,text,path_to_save):
@@ -107,4 +107,11 @@ paste_picture_to_wishlist(
 # set_wish_list_image_name(path_to_template="Sistemimages/шаблон.png",text="Spongebobb",path_to_save="rezult.png")
 
 
-
+action_from_user_id = 6964533009 
+wish_list_name = "Любимое"
+number = 4
+path = (f"users_minifigures_photos/{6964533009}/{wish_list_name}")
+qwer= (os.listdir(path))
+file_name = qwer[number-1]
+os.remove(f"users_minifigures_photos/{6964533009}/{wish_list_name}/{file_name}")
+print(file_name)

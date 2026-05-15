@@ -14,6 +14,7 @@ from pprint import pprint
 from config import mybot
 import os
 from picture_utils import crop_to_rectangle, paste_picture_to_wishlist
+from os import remove
 
 minifigurs_router = Router()
 
@@ -93,5 +94,10 @@ async def process_name(action: Message,state: FSMContext):
 @minifigurs_router.message(States.waiting_minifigure_number_to_delite)
 async def process_name(action,state: FSMContext):
     full_data = await state.get_data()
-    full_data['wishlist_massege'].delete()
-    await action.answer(f"Фигурка с номером {action.text} в виш-листе {full_data['wish_list_name']}",reply_markup=funkcii_figurki)
+    # full_data['wishlist_massege'].delete() # УДАЛЕНИЕ СООБЩЕНИЯ
+    path = (f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}")
+    all_wish_list_files = (os.listdir(path))
+    file_name = all_wish_list_files[int(action.text)-1]
+    os.remove(f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{file_name}")
+    print(file_name)
+    await action.answer(f"Фигурка с номером {action.text} из виш-листа {full_data['wish_list_name']} удалена!",reply_markup=funkcii_figurki)
