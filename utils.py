@@ -12,7 +12,7 @@ def get_directory_tree(path, show_hidden=False, max_depth=None, current_depth=0,
         return ''.join(lines)
 
     try:
-        entries = sorted(os.listdir(path))
+        entries = os.listdir(path)
     except PermissionError:
         lines.append(f"{prefix}{'└── ' if is_last_root else '├── '}[Permission Denied]\n")
         return ''.join(lines)
