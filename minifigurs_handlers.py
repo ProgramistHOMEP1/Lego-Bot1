@@ -102,7 +102,7 @@ async def process_name(action,state: FSMContext):
     file_name = all_wish_list_files[int(action.text)]
     os.remove(f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{file_name}")
     # ПЕРЕСБОРКА ВИШЛИСТА
-    set_wish_list_image_name({full_data['wish_list_name']},f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/wishlist.png")
+    set_wish_list_image_name(full_data['wish_list_name'],f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/wishlist.png")
     
     # paste_picture_to_wishlist(
     #     path_to_picture=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{number_my_pic}.png",
