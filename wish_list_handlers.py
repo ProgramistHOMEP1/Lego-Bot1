@@ -100,12 +100,7 @@ async def process_name(action,state: FSMContext):
         names =  names + f"- `{wish_list['name']}` \n"
     await action.answer(f"*Виш-лист с названием '{action.text}' удален!*\n*Ваши виш-листы:* \n\n{names}",reply_markup=funkcii_vish_list,parse_mode="Markdown")
     await state.clear()
-# Домашнее задание:
-# Сделать кнопку "Просмотр вишлистов"
-# По нажатию будут отображен список с названиями вишлистов (ТОЧНО ТАКОЙ ЖЕ, как у тебя уже и так 
-# отображается при заходе в меню вишлистов - просто скопируй код)
-# Только в конец сообщения добавь текст "Введите названия вишлиста для просмотра"
-
+    
 @wish_lists_router.message(F.text=="Просмотр виш-листа")
 async def command_ping(action,state: FSMContext):
     await action.answer(f"Просмотр виш-листа",reply_markup=funkcii_vish_list)
