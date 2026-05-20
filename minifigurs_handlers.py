@@ -103,10 +103,11 @@ async def process_name(action,state: FSMContext):
     os.remove(f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{file_name}")
     # ПЕРЕСБОРКА ВИШЛИСТА
     set_wish_list_image_name(full_data['wish_list_name'],f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/wishlist.png")
-    
-    # paste_picture_to_wishlist(
-    #     path_to_picture=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{number_my_pic}.png",
-    #     number=number_my_pic,
-    #     path_to_wishlist=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/wishlist.png")
-
+    all_wish_list_files = (os.listdir(path))
+    for index, picture_name in enumerate(all_wish_list_files):
+        if index>0:
+            paste_picture_to_wishlist(
+                path_to_picture=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{picture_name}",
+                number=index,
+                path_to_wishlist=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/wishlist.png")
     await action.answer(f"Фигурка с номером {action.text} из виш-листа {full_data['wish_list_name']} удалена!",reply_markup=funkcii_figurki)
