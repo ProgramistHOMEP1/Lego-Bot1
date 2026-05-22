@@ -98,7 +98,7 @@ async def process_name(action: Message,state: FSMContext):
 async def process_name(action,state: FSMContext):
     full_data = await state.get_data()
     # full_data['wishlist_massege'].delete() # УДАЛЕНИЕ СООБЩЕНИЯ
-    mybot.delete_message(message_id=full_data["wish_list_message_id"]chat_id=action_from_user_id)
+    mybot.delete_message(message_id=full_data["wish_list_message_id"],chat_id={action.from_user_id})
     path = (f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}")
     all_wish_list_files = (os.listdir(path))
     file_name = all_wish_list_files[int(action.text)]
