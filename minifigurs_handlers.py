@@ -17,6 +17,7 @@ from picture_utils import crop_to_rectangle, paste_picture_to_wishlist
 from os import remove
 from picture_utils import set_wish_list_image_name
 
+
 minifigurs_router = Router()
 
 @minifigurs_router.message(F.text=="Функции минифигурок")
@@ -87,8 +88,8 @@ async def process_name(action,state: FSMContext):
 
 @minifigurs_router.message(States.waiting_wishlist_name_to_delite_minifigure)
 async def process_name(action: Message,state: FSMContext):
-    wishlist_massege = await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_figurki)
-    await state.update_data(wishlist_massege=wishlist_massege)
+    wishlist_message = await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_figurki)
+    await state.update_data(wishlist_message_id=wishlist_message.message_id)
     await action.answer(f"Введите номер фигурки которую хотите удалить",reply_markup=funkcii_figurki)
     await state.set_state(States.waiting_minifigure_number_to_delite)
     await state.update_data(wish_list_name=action.text)
@@ -97,6 +98,7 @@ async def process_name(action: Message,state: FSMContext):
 async def process_name(action,state: FSMContext):
     full_data = await state.get_data()
     # full_data['wishlist_massege'].delete() # УДАЛЕНИЕ СООБЩЕНИЯ
+    mybot.delete_message(message_id=full_data["wish_list_message_id"]chat_id=action_from_user_id)
     path = (f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}")
     all_wish_list_files = (os.listdir(path))
     file_name = all_wish_list_files[int(action.text)]
