@@ -73,7 +73,7 @@ async def process_name(action,state: FSMContext):
     await state.clear()
     await action.answer(f"Минифигурка успешно добавлена в виш-лист «{full_data['wish_list_name']}»!",reply_markup=funkcii_figurki)
 
-
+# ----------------------------------------УДАЛЕНИЕ ФИГУРКИ ИЗ ВИШ ЛИСТА-----------------
 @minifigurs_router.message(F.text=="Удалить фигурку из виш-листа")
 async def process_name(action,state: FSMContext):
     await action.answer(f"Выберите виш-лист из которого хотите удалить минифигурку",reply_markup=funkcii_figurki)
@@ -88,12 +88,16 @@ async def process_name(action,state: FSMContext):
 
 @minifigurs_router.message(States.waiting_wishlist_name_to_delite_minifigure)
 async def process_name(action: Message,state: FSMContext):
-    wishlist_message = await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_figurki)
-    await state.update_data(wishlist_message_id=wishlist_message.message_id)
-    await action.answer(f"Введите номер фигурки которую хотите удалить",reply_markup=funkcii_figurki)
-    await state.set_state(States.waiting_minifigure_number_to_delite)
-    await state.update_data(wish_list_name=action.text)
-
+    path = (f"users_minifigures_photos/{action.from_user.id}")
+    everything_about_user = (os.listdir(path))
+    if action.text in everything_about_user:
+        wishlist_message = await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_figurki)
+        await state.update_data(wishlist_message_id=wishlist_message.message_id)
+        await action.answer(f"Введите номер фигурки которую хотите удалить",reply_markup=funkcii_figurki)
+        await state.set_state(States.waiting_minifigure_number_to_delite)
+        await state.update_data(wish_list_name=action.text)
+    else:
+        await action.answer(f"Извините, похоже такого виш-листа не существует!",reply_markup=funkcii_figurki)
 @minifigurs_router.message(States.waiting_minifigure_number_to_delite)
 async def process_name(action,state: FSMContext):
     full_data = await state.get_data()
