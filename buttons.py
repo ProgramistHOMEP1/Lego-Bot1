@@ -22,3 +22,8 @@ funkcii_figurki = ReplyKeyboardMarkup(resize_keyboard=True,keyboard=[
 
 
 ])
+
+cansel = ReplyKeyboardMarkup(resize_keyboard=True,keyboard=[
+[KeyboardButton(text="Отмена действия")]
+
+])

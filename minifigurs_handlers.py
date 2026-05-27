@@ -16,7 +16,7 @@ import os
 from picture_utils import crop_to_rectangle, paste_picture_to_wishlist
 from os import remove
 from picture_utils import set_wish_list_image_name
-
+from buttons import cansel
 
 minifigurs_router = Router()
 
@@ -26,14 +26,14 @@ async def command_ping(action):
 
 @minifigurs_router.message(F.text=="Добавить фигурку в виш-лист")
 async def process_name(action,state: FSMContext):
-    await action.answer(f"Выберите виш-лист в который хотите добавить минифигурку",reply_markup=funkcii_figurki)
+    await action.answer(f"Выберите виш-лист в который хотите добавить минифигурку",reply_markup=cansel)
     user = db_users.find_one(filter={
         "tg_id": action.from_user.id
     })
     names = ""
     for wish_list in user["wish_lists"]:
         names =  names + f"- `{wish_list['name']}` \n"
-    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=funkcii_figurki,parse_mode="Markdown")
+    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=cansel,parse_mode="Markdown")
     await state.set_state(States.waiting_wishlist_name_to_add_minifigure)
 
 @minifigurs_router.message(States.waiting_wishlist_name_to_add_minifigure)
@@ -48,9 +48,9 @@ async def process_name(action,state: FSMContext):
             find_wish_list = wish_list
             break
     if find_wish_list=="":
-            await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пеши граматно, балбес!",reply_markup=funkcii_figurki)
+            await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пеши граматно, балбес!",reply_markup=cansel)
             return None
-    await action.answer(f"Отправьте фотографию минифигурки, которую хотите добавить в виш-лист «{action.text}»",reply_markup=funkcii_figurki)
+    await action.answer(f"Отправьте фотографию минифигурки, которую хотите добавить в виш-лист «{action.text}»",reply_markup=cansel)
     await state.set_state(States.waiting_minifigure_picture_to_add)
     await state.update_data(wish_list_name=action.text)
 
@@ -76,14 +76,14 @@ async def process_name(action,state: FSMContext):
 # ----------------------------------------УДАЛЕНИЕ ФИГУРКИ ИЗ ВИШ ЛИСТА-----------------
 @minifigurs_router.message(F.text=="Удалить фигурку из виш-листа")
 async def process_name(action,state: FSMContext):
-    await action.answer(f"Выберите виш-лист из которого хотите удалить минифигурку",reply_markup=funkcii_figurki)
+    await action.answer(f"Выберите виш-лист из которого хотите удалить минифигурку",reply_markup=cansel)
     user = db_users.find_one(filter={
         "tg_id": action.from_user.id
     })
     names = ""
     for wish_list in user["wish_lists"]:
         names =  names + f"- `{wish_list['name']}` \n"
-    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=funkcii_figurki,parse_mode="Markdown")
+    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=cansel,parse_mode="Markdown")
     await state.set_state(States.waiting_wishlist_name_to_delite_minifigure)
 
 @minifigurs_router.message(States.waiting_wishlist_name_to_delite_minifigure)
@@ -93,7 +93,7 @@ async def process_name(action: Message,state: FSMContext):
     if action.text in everything_about_user:
         wishlist_message = await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_figurki)
         await state.update_data(wishlist_message_id=wishlist_message.message_id)
-        await action.answer(f"Введите номер фигурки которую хотите удалить",reply_markup=funkcii_figurki)
+        await action.answer(f"Введите номер фигурки которую хотите удалить",reply_markup=cansel)
         await state.set_state(States.waiting_minifigure_number_to_delite)
         await state.update_data(wish_list_name=action.text)
     else:

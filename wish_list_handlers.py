@@ -81,7 +81,7 @@ async def process_name(action,state: FSMContext):
             find_wish_list = wish_list
             break
     if find_wish_list=="":
-            await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пиши грамотно, балбес!",reply_markup=funkcii_vish_list)
+            await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пеши грамотно, балбес! Такого виш-листа не существует!",reply_markup=funkcii_vish_list)
             return None
     user["wish_lists"].remove(find_wish_list)
 # ------------Запись новой версии виш-листов------------
