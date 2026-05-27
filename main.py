@@ -69,9 +69,9 @@ async def command_ping(action):
 
 
 
-
-
-
+@wish_lists_router.message(F.text=="Отмена действия")
+async def cansel(action,state: FSMContext):
+    await state.clear()
 
 
 

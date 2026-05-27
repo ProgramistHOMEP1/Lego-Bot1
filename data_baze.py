@@ -1,8 +1,11 @@
 import pymongo
 from aiogram.fsm.state import State, StatesGroup
-client = pymongo.MongoClient("localhost",port=27017)
+from config import mongo_port
+client = pymongo.MongoClient("localhost",mongo_port)
 db = client["Lego-Bot"]
 db_users = db["Users"]
+
+
 
 class States(StatesGroup):
     waiting_wishlist_name_to_add = State()

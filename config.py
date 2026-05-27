@@ -9,6 +9,7 @@ mybot = Bot(token=mytoken)
 path_to_shablon = "Sistemimages/шаблонО3.png"
 path_to_prozrschniy_shablon="Sistemimages/Прозрачный шаблон.png"
 
+mongo_port =  27017
 
 shablon_picture_matrix = {
     # Первый ряд
