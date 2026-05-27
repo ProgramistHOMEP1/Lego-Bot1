@@ -1,2 +1,3 @@
 aiogram==3.27.0
 pymongo==4.15.4
+pillow==12.1.1

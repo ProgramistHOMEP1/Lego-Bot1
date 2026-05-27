@@ -3,7 +3,7 @@ from aiogram import Router, F
 from aiogram.types import BotCommand, FSInputFile
 from random import choice
 from random import randint,choice
-from buttons import glavnie_knopotki,funkcii_vish_list,funkcii_figurki
+from buttons import glavnie_knopotki,funkcii_vish_list,funkcii_figurki,cansel
 import pymongo
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.state import State, StatesGroup
@@ -22,13 +22,13 @@ async def command_ping(action):
     names = ""
     for wish_list in user["wish_lists"]:
         names =  names + f"- `{wish_list['name']}` \n"
-    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=funkcii_vish_list,parse_mode="Markdown")
+    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=cansel,parse_mode="Markdown")
 #
 # -------------------------------КНОПОЧКИ ВИШ-ЛИСТОВ--------------------------------
 # ---------------------------------------------------------------Добавление виш-листа--------------------------------------------------------------
 @wish_lists_router.message(F.text=="Добавить виш-лист")
 async def command_ping(action,state: FSMContext):
-    await action.answer(f"Введите название Вашего нового виш-листа",reply_markup=funkcii_vish_list)
+    await action.answer(f"Введите название Вашего нового виш-листа",reply_markup=cansel)
     await state.set_state(States.waiting_wishlist_name_to_add)
 
 @wish_lists_router.message(States.waiting_wishlist_name_to_add)
@@ -39,7 +39,7 @@ async def process_name(action,state: FSMContext):
     
     for wish_list in rezult["wish_lists"]:
         if wish_list["name"]==action.text:
-            await action.answer(f"Введите новое название для вашего виш-листа, такое название уже есть!",reply_markup=funkcii_vish_list)
+            await action.answer(f"Введите новое название для вашего виш-листа, такое название уже есть!",reply_markup=cansel)
             return 0
     rezult["wish_lists"].append({'name': action.text, 'minis': []})
     new_wish_lists = (rezult["wish_lists"])
@@ -63,7 +63,7 @@ async def process_name(action,state: FSMContext):
 # ---------------------------------------------------------------------Удаление виш-листа----------------------------------------------------------
 @wish_lists_router.message(F.text=="Удалить виш-лист")
 async def command_ping(action,state: FSMContext):
-    await action.answer(f"Введите название виш-листа который хотите удалить",reply_markup=funkcii_vish_list)
+    await action.answer(f"Введите название виш-листа который хотите удалить",reply_markup=cansel)
     await state.set_state(States.waiting_wishlist_name_to_delete)
 
 
@@ -81,7 +81,7 @@ async def process_name(action,state: FSMContext):
             find_wish_list = wish_list
             break
     if find_wish_list=="":
-            await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пеши грамотно, балбес! Такого виш-листа не существует!",reply_markup=funkcii_vish_list)
+            await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пеши грамотно, балбес! Такого виш-листа не существует!",reply_markup=cansel)
             return None
     user["wish_lists"].remove(find_wish_list)
 # ------------Запись новой версии виш-листов------------
@@ -98,19 +98,19 @@ async def process_name(action,state: FSMContext):
     names = ""
     for wish_list in user["wish_lists"]:
         names =  names + f"- `{wish_list['name']}` \n"
-    await action.answer(f"*Виш-лист с названием '{action.text}' удален!*\n*Ваши виш-листы:* \n\n{names}",reply_markup=funkcii_vish_list,parse_mode="Markdown")
+    await action.answer(f"*Виш-лист с названием '{action.text}' удален!*\n*Ваши виш-листы:* \n\n{names}",reply_markup=cansel,parse_mode="Markdown")
     await state.clear()
     
 @wish_lists_router.message(F.text=="Просмотр виш-листа")
 async def command_ping(action,state: FSMContext):
-    await action.answer(f"Просмотр виш-листа",reply_markup=funkcii_vish_list)
+    await action.answer(f"Просмотр виш-листа",reply_markup=cansel)
     user = db_users.find_one(filter={
         "tg_id": action.from_user.id
     })
     names = ""
     for wish_list in user["wish_lists"]:
         names =  names + f"- `{wish_list['name']}` \n"
-    await action.answer(f"Ваши виш-листы: \n\n{names}\nВведите название виш-листа который хотите просмотреть",reply_markup=funkcii_vish_list,parse_mode="Markdown")
+    await action.answer(f"Ваши виш-листы: \n\n{names}\nВведите название виш-листа который хотите просмотреть",reply_markup=cansel,parse_mode="Markdown")
     await state.set_state(States.waiting_wishlist_name_to_check)
 
 @wish_lists_router.message(States.waiting_wishlist_name_to_check)
@@ -124,7 +124,7 @@ async def process_name(action,state: FSMContext):
             is_wish_list_exists = True
     
     if is_wish_list_exists==False:
-        await action.answer(f"Извините, такого виш-листа не существует!",reply_markup=funkcii_vish_list)
+        await action.answer(f"Извините, такого виш-листа не существует!",reply_markup=cansel)
     else:
         await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_vish_list)
         await state.clear()
