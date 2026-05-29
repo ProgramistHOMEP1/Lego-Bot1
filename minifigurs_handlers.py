@@ -50,7 +50,7 @@ async def process_name(action,state: FSMContext):
     if find_wish_list=="":
             await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пеши граматно, балбес!",reply_markup=cansel)
             return None
-    if len(os.listdir[f"users_minifigures_photos/{action.from_user.id}/{action.text}"])<30:
+    if len(os.listdir(f"users_minifigures_photos/{action.from_user.id}/{action.text}"))<30:
         await action.answer(f"Отправьте фотографию минифигурки, которую хотите добавить в виш-лист «{action.text}»",reply_markup=cansel)
         await state.set_state(States.waiting_minifigure_picture_to_add)
         await state.update_data(wish_list_name=action.text)
