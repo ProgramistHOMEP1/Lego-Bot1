@@ -22,7 +22,7 @@ async def command_ping(action):
     names = ""
     for wish_list in user["wish_lists"]:
         names =  names + f"- `{wish_list['name']}` \n"
-    await action.answer(f"Ващи виш-листы: \n\n{names}",reply_markup=funkcii_vish_list,parse_mode="Markdown")
+    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=funkcii_vish_list,parse_mode="Markdown")
 #
 # -------------------------------КНОПОЧКИ ВИШ-ЛИСТОВ--------------------------------
 # ---------------------------------------------------------------Добавление виш-листа--------------------------------------------------------------
