@@ -50,9 +50,13 @@ async def process_name(action,state: FSMContext):
     if find_wish_list=="":
             await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg"),caption="Пеши граматно, балбес!",reply_markup=cansel)
             return None
-    await action.answer(f"Отправьте фотографию минифигурки, которую хотите добавить в виш-лист «{action.text}»",reply_markup=cansel)
-    await state.set_state(States.waiting_minifigure_picture_to_add)
-    await state.update_data(wish_list_name=action.text)
+    if os.listdir<30:
+        await action.answer(f"Отправьте фотографию минифигурки, которую хотите добавить в виш-лист «{action.text}»",reply_markup=cansel)
+        await state.set_state(States.waiting_minifigure_picture_to_add)
+        await state.update_data(wish_list_name=action.text)
+    else:
+        await action.answer(f"Извините, похоже в Вашем виш-листе «{action.text}» закончилось место для новых минифигурок!\n Удалите минифигурки из этого виш-листа, или добавьте новый виш-лист!",reply_markup=glavnie_knopotki)
+        await state.clear()
 
 @minifigurs_router.message(States.waiting_minifigure_picture_to_add)
 async def process_name(action,state: FSMContext):
