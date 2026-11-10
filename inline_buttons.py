@@ -4,12 +4,14 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 main_inline_keyboard = InlineKeyboardMarkup(inline_keyboard=[
-[InlineKeyboardButton(text="Функции виш-листов"),InlineKeyboardButton(text="Функции минифигурок")],
+[InlineKeyboardButton(text="Функции виш-листов", callback_data="btn_wish_list", style="success"),InlineKeyboardButton(text="Функции минифигурок")],
 
 
 ])
 
-
+ InlineKeyboardButton(text="Математика", callback_data="btnmath", style="success"),
+        InlineKeyboardButton(text="Русский", callback_data="btnrussian", style="primary")
+    ],
 
 
 
