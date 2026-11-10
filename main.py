@@ -3,7 +3,7 @@ from aiogram import Bot, Dispatcher, F
 from aiogram.types import BotCommand, FSInputFile
 from random import choice
 from random import randint,choice
-from buttons import glavnie_knopotki,funkcii_vish_list,funkcii_figurki
+from inline_buttons import main_inline_keyboard,funkcii_vish_list,funkcii_figurki
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.context import FSMContext
 from data_baze import db_users
@@ -43,7 +43,7 @@ async def command_start(action):
         }
         db_users.insert_one(user)
     await action.answer(f"Приветствую Вас, {action.from_user.first_name}\nВаш id: {action.from_user.id}")
-    await action.answer(f"Главное меню",reply_markup=glavnie_knopotki)
+    await action.answer(f"Главное меню",reply_markup=main_inline_keyboard)
 
 # Домашнее задание:
 # Сделать функцию для кнопки "просмотр вишлиста"
@@ -52,7 +52,7 @@ async def command_start(action):
 
 @mydispatcher.message(F.text=="Главное меню")
 async def command_ping(action):
-    await action.answer(f"Главное меню",reply_markup=glavnie_knopotki)
+    await action.answer(f"Главное меню",reply_markup=main_inline_keyboard)
 
 
 
@@ -72,7 +72,7 @@ async def command_ping(action):
 @mydispatcher.message(F.text=="Отмена действия")
 async def cansel(action,state: FSMContext):
     await state.clear()
-    await action.answer(f"Отмена действия",reply_markup=glavnie_knopotki)
+    await action.answer(f"Отмена действия",reply_markup=main_inline_keyboard)
 
 
 

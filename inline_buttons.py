@@ -1,10 +1,18 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-glavnie_knopotki = ReplyKeyboardMarkup(resize_keyboard=True,keyboard=[
-[KeyboardButton(text="Функции виш-листов"),KeyboardButton(text="Функции минифигурок")],
+
+
+main_inline_keyboard = InlineKeyboardMarkup(inline_keyboard=[
+[InlineKeyboardButton(text="Функции виш-листов"),InlineKeyboardButton(text="Функции минифигурок")],
 
 
 ])
+
+
+
+
+
 
 funkcii_vish_list = ReplyKeyboardMarkup(resize_keyboard=True,keyboard=[
 [KeyboardButton(text="Добавить виш-лист"),KeyboardButton(text="Удалить виш-лист")],

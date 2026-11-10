@@ -3,7 +3,7 @@ from aiogram import Router, F
 from aiogram.types import BotCommand, FSInputFile
 from random import choice
 from random import randint,choice
-from buttons import glavnie_knopotki,funkcii_vish_list,funkcii_figurki,cansel
+from inline_buttons import main_inline_keyboard,funkcii_vish_list,funkcii_figurki,cansel
 import pymongo
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.state import State, StatesGroup

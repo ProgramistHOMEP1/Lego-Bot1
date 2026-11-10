@@ -4,7 +4,7 @@ from aiogram.types import BotCommand, FSInputFile, Message
 from aiogram import types
 from random import choice
 from random import randint,choice
-from buttons import glavnie_knopotki,funkcii_vish_list,funkcii_figurki
+from inline_buttons import main_inline_keyboard,funkcii_vish_list,funkcii_figurki
 import pymongo
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.state import State, StatesGroup
@@ -16,7 +16,7 @@ import os
 from picture_utils import crop_to_rectangle, paste_picture_to_wishlist
 from os import remove
 from picture_utils import set_wish_list_image_name
-from buttons import cansel
+from inline_buttons import cansel
 
 minifigurs_router = Router()
 
@@ -55,7 +55,7 @@ async def process_name(action,state: FSMContext):
         await state.set_state(States.waiting_minifigure_picture_to_add)
         await state.update_data(wish_list_name=action.text)
     else:
-        await action.answer(f"Извините, похоже в Вашем виш-листе «{action.text}» закончилось место для новых минифигурок!\n Удалите минифигурки из этого виш-листа, или добавьте новый виш-лист!",reply_markup=glavnie_knopotki)
+        await action.answer(f"Извините, похоже в Вашем виш-листе «{action.text}» закончилось место для новых минифигурок!\n Удалите минифигурки из этого виш-листа, или добавьте новый виш-лист!",reply_markup=main_inline_keyboard)
         await state.clear()
 
 @minifigurs_router.message(States.waiting_minifigure_picture_to_add)
