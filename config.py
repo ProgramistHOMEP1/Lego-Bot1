@@ -1,8 +1,11 @@
 from aiogram import Bot
 from PIL import Image
 from PIL import ImageDraw, ImageFont
+import os
+from dotenv import load_dotenv
 
-mytoken = "8372995576:AAEETllZlf082ZztfxS6jxYTiuBCA51gUjs"
+load_dotenv()
+mytoken = os.getenv("TOKEN")
 mybot = Bot(token=mytoken)
 
 
