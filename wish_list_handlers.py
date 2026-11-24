@@ -14,7 +14,7 @@ import shutil
 from picture_utils import set_wish_list_image_name
 wish_lists_router = Router()
 # -------------------------------МЕНЮ ВИШ-ЛИСТОВ------------------------------------
-@wish_lists_router.message(F.text=="Функции виш-листов")
+@wish_lists_router.callback_query(F.data == "btn_wish_lists")
 async def command_ping(action):
     user = db_users.find_one(filter={
         "tg_id": action.from_user.id
@@ -22,7 +22,7 @@ async def command_ping(action):
     names = ""
     for wish_list in user["wish_lists"]:
         names =  names + f"- `{wish_list['name']}` \n"
-    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=wishlists_keyboard,parse_mode="Markdown")
+    await action.message.edit_text(f"Ваши виш-листы: \n\n{names}",reply_markup=wishlists_keyboard,parse_mode="Markdown")
 #
 # -------------------------------КНОПОЧКИ ВИШ-ЛИСТОВ--------------------------------
 # ---------------------------------------------------------------Добавление виш-листа--------------------------------------------------------------
