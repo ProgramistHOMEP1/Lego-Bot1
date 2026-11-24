@@ -12,7 +12,7 @@ main_inline_keyboard = InlineKeyboardMarkup(inline_keyboard=[
 
 
 
-wishlists_keyboard = InlineKeyboardMarkup(keyboard=[
+wishlists_keyboard = InlineKeyboardMarkup(inline_keyboard=[
 [InlineKeyboardButton(text="Добавить виш-лист", callback_data="btn_add_wishlist", style="success"),InlineKeyboardButton(text="Удалить виш-лист", callback_data="btn_delete_wishlist", style="danger")],
 [InlineKeyboardButton(text="Просмотр виш-листа", callback_data="btn_check_wishlist", style="primary")],
 [InlineKeyboardButton(text="Главное меню", callback_data="btn_main_menu")]
@@ -21,7 +21,7 @@ wishlists_keyboard = InlineKeyboardMarkup(keyboard=[
 
 ])
 
-minifigures_keyboard = InlineKeyboardMarkup(keyboard=[
+minifigures_keyboard = InlineKeyboardMarkup(inline_keyboard=[
 [InlineKeyboardButton(text="Добавить фигурку в виш-лист", callback_data="btn_add_minifigure_to_wishlist", style="success"),InlineKeyboardButton(text="Удалить фигурку из виш-листа", callback_data="btn_delete_minifigure_from_wishlist", style="danger")],
 [InlineKeyboardButton(text="Главное меню", callback_data="btn_main_menu")]
 
@@ -29,7 +29,7 @@ minifigures_keyboard = InlineKeyboardMarkup(keyboard=[
 
 ])
 
-cansel = InlineKeyboardMarkup(keyboard=[
+cansel = InlineKeyboardMarkup(inline_keyboard=[
 [InlineKeyboardButton(text="Отмена действия", callback_data="btn_cansel")]
 
 ])
