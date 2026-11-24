@@ -3,7 +3,7 @@ from aiogram import Router, F
 from aiogram.types import BotCommand, FSInputFile
 from random import choice
 from random import randint,choice
-from inline_buttons import main_inline_keyboard,funkcii_vish_list,funkcii_figurki,cansel
+from inline_buttons import main_inline_keyboard,wishlists_keyboard,minifigures_keyboard,cansel
 import pymongo
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.state import State, StatesGroup
@@ -22,7 +22,7 @@ async def command_ping(action):
     names = ""
     for wish_list in user["wish_lists"]:
         names =  names + f"- `{wish_list['name']}` \n"
-    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=funkcii_vish_list,parse_mode="Markdown")
+    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=wishlists_keyboard,parse_mode="Markdown")
 #
 # -------------------------------КНОПОЧКИ ВИШ-ЛИСТОВ--------------------------------
 # ---------------------------------------------------------------Добавление виш-листа--------------------------------------------------------------
@@ -58,7 +58,7 @@ async def process_name(action,state: FSMContext):
         names =  names + f"- `{wish_list['name']}` \n"
     os.mkdir(f"users_minifigures_photos/{action.from_user.id}/{action.text}")
     set_wish_list_image_name(action.text,f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png")
-    await action.answer(f"*Виш-лист с названием '{action.text}' добавлен!*\n*Ваши виш-листы:* \n\n{names}",reply_markup=funkcii_vish_list,parse_mode="Markdown")
+    await action.answer(f"*Виш-лист с названием '{action.text}' добавлен!*\n*Ваши виш-листы:* \n\n{names}",reply_markup=wishlists_keyboard,parse_mode="Markdown")
     await state.clear()
 # ---------------------------------------------------------------------Удаление виш-листа----------------------------------------------------------
 @wish_lists_router.message(F.text=="Удалить виш-лист")
@@ -98,7 +98,7 @@ async def process_name(action,state: FSMContext):
     names = ""
     for wish_list in user["wish_lists"]:
         names =  names + f"- `{wish_list['name']}` \n"
-    await action.answer(f"*Виш-лист с названием '{action.text}' удален!*\n*Ваши виш-листы:* \n\n{names}",reply_markup=funkcii_vish_list,parse_mode="Markdown")
+    await action.answer(f"*Виш-лист с названием '{action.text}' удален!*\n*Ваши виш-листы:* \n\n{names}",reply_markup=wishlists_keyboard,parse_mode="Markdown")
     await state.clear()
     
 @wish_lists_router.message(F.text=="Просмотр виш-листа")
@@ -126,6 +126,6 @@ async def process_name(action,state: FSMContext):
     if is_wish_list_exists==False:
         await action.answer(f"Извините, такого виш-листа не существует!",reply_markup=cansel)
     else:
-        await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_vish_list)
+        await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=wishlists_keyboard)
         await state.clear()
 # await action.answer_photo(FSInputFile("Sistemimages/Обезьянкасреднийпалец.jpg")

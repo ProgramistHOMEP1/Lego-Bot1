@@ -4,7 +4,7 @@ from aiogram.types import BotCommand, FSInputFile, Message
 from aiogram import types
 from random import choice
 from random import randint,choice
-from inline_buttons import main_inline_keyboard,funkcii_vish_list,funkcii_figurki
+from inline_buttons import main_inline_keyboard,wishlists_keyboard,minifigures_keyboard
 import pymongo
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.state import State, StatesGroup
@@ -22,7 +22,7 @@ minifigurs_router = Router()
 
 @minifigurs_router.message(F.text=="Функции минифигурок")
 async def command_ping(action):
-    await action.answer(f"Функции минифигурок",reply_markup=funkcii_figurki)
+    await action.answer(f"Функции минифигурок",reply_markup=minifigures_keyboard)
 
 @minifigurs_router.message(F.text=="Добавить фигурку в виш-лист")
 async def process_name(action,state: FSMContext):
@@ -75,7 +75,7 @@ async def process_name(action,state: FSMContext):
         path_to_wishlist=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/wishlist.png")
 
     await state.clear()
-    await action.answer(f"Минифигурка успешно добавлена в виш-лист «{full_data['wish_list_name']}»!",reply_markup=funkcii_figurki)
+    await action.answer(f"Минифигурка успешно добавлена в виш-лист «{full_data['wish_list_name']}»!",reply_markup=minifigures_keyboard)
 
 # ----------------------------------------УДАЛЕНИЕ ФИГУРКИ ИЗ ВИШ ЛИСТА-----------------
 @minifigurs_router.message(F.text=="Удалить фигурку из виш-листа")
@@ -95,13 +95,13 @@ async def process_name(action: Message,state: FSMContext):
     path = (f"users_minifigures_photos/{action.from_user.id}")
     everything_about_user = (os.listdir(path))
     if action.text in everything_about_user:
-        wishlist_message = await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=funkcii_figurki)
+        wishlist_message = await action.answer_photo(FSInputFile(f"users_minifigures_photos/{action.from_user.id}/{action.text}/wishlist.png"),reply_markup=minifigures_keyboard)
         await state.update_data(wishlist_message_id=wishlist_message.message_id)
         await action.answer(f"Введите номер фигурки которую хотите удалить",reply_markup=cansel)
         await state.set_state(States.waiting_minifigure_number_to_delite)
         await state.update_data(wish_list_name=action.text)
     else:
-        await action.answer(f"Извините, похоже такого виш-листа не существует!",reply_markup=funkcii_figurki)
+        await action.answer(f"Извините, похоже такого виш-листа не существует!",reply_markup=minifigures_keyboard)
 @minifigurs_router.message(States.waiting_minifigure_number_to_delite)
 async def process_name(action,state: FSMContext):
     full_data = await state.get_data()
@@ -120,4 +120,4 @@ async def process_name(action,state: FSMContext):
                 path_to_picture=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/{picture_name}",
                 number=index,
                 path_to_wishlist=f"users_minifigures_photos/{action.from_user.id}/{full_data['wish_list_name']}/wishlist.png")
-    await action.answer(f"Фигурка с номером {action.text} из виш-листа {full_data['wish_list_name']} удалена!",reply_markup=funkcii_figurki)
+    await action.answer(f"Фигурка с номером {action.text} из виш-листа {full_data['wish_list_name']} удалена!",reply_markup=minifigures_keyboard)

@@ -9,31 +9,27 @@ main_inline_keyboard = InlineKeyboardMarkup(inline_keyboard=[
 
 ])
 
- InlineKeyboardButton(text="Математика", callback_data="btnmath", style="success"),
-        InlineKeyboardButton(text="Русский", callback_data="btnrussian", style="primary")
-    ],
 
 
 
-
-funkcii_vish_list = ReplyKeyboardMarkup(resize_keyboard=True,keyboard=[
-[KeyboardButton(text="Добавить виш-лист"),KeyboardButton(text="Удалить виш-лист")],
-[KeyboardButton(text="Просмотр виш-листа")],
-[KeyboardButton(text="Главное меню")]
+wishlists_keyboard = InlineKeyboardMarkup(keyboard=[
+[InlineKeyboardButton(text="Добавить виш-лист"),InlineKeyboardButton(text="Удалить виш-лист")],
+[InlineKeyboardButton(text="Просмотр виш-листа")],
+[InlineKeyboardButton(text="Главное меню")]
 
 
 
 ])
 
-funkcii_figurki = ReplyKeyboardMarkup(resize_keyboard=True,keyboard=[
-[KeyboardButton(text="Добавить фигурку в виш-лист"),KeyboardButton(text="Удалить фигурку из виш-листа")],
-[KeyboardButton(text="Главное меню")]
+minifigures_keyboard = InlineKeyboardMarkup(keyboard=[
+[InlineKeyboardButton(text="Добавить фигурку в виш-лист"),InlineKeyboardButton(text="Удалить фигурку из виш-листа")],
+[InlineKeyboardButton(text="Главное меню")]
 
 
 
 ])
 
-cansel = ReplyKeyboardMarkup(resize_keyboard=True,keyboard=[
-[KeyboardButton(text="Отмена действия")]
+cansel = InlineKeyboardMarkup(keyboard=[
+[InlineKeyboardButton(text="Отмена действия")]
 
 ])

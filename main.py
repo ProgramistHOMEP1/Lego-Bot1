@@ -3,7 +3,7 @@ from aiogram import Bot, Dispatcher, F
 from aiogram.types import BotCommand, FSInputFile
 from random import choice
 from random import randint,choice
-from inline_buttons import main_inline_keyboard,funkcii_vish_list,funkcii_figurki
+from inline_buttons import main_inline_keyboard,wishlists_keyboard,minifigures_keyboard
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.context import FSMContext
 from data_baze import db_users
@@ -46,9 +46,9 @@ async def command_start(action):
     await action.answer(f"Главное меню",reply_markup=main_inline_keyboard)
 
 # Домашнее задание:
-# Сделать функцию для кнопки "просмотр вишлиста"
-# По её нажатию спрашивать пользователя название вишлиста, который он хочет просмотреть. После отправлять из этого вишлиста картинку
 
+# 1) Перевести главное меню на инлайн кнопки
+# 2) Перевести меню функций фигурок на инлайн кнопки
 
 @mydispatcher.message(F.text=="Главное меню")
 async def command_ping(action):
@@ -59,7 +59,7 @@ async def command_ping(action):
 # --------------------------------МЕНЮ ФИГУРОК--------------------------------------
 @mydispatcher.message(F.text=="Функции минифигурок")
 async def command_ping(action):
-    await action.answer(f"Функции минифигурок",reply_markup=funkcii_figurki)
+    await action.answer(f"Функции минифигурок",reply_markup=minifigures_keyboard)
 # --------------------------------КНОПОЧКИ ФИГУРОК----------------------------------
 
 
