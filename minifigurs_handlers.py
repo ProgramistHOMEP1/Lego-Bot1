@@ -24,17 +24,19 @@ minifigurs_router = Router()
 async def command_ping(action):
     await action.answer(f"Функции минифигурок",reply_markup=minifigures_keyboard)
 
-@minifigurs_router.message(F.text=="Добавить фигурку в виш-лист")
+@minifigurs_router.callback_query(F.data == "btn_add_minifigure_to_wishlist")
 async def process_name(action,state: FSMContext):
-    await action.answer(f"Выберите виш-лист в который хотите добавить минифигурку",reply_markup=cansel)
+    await action.message.edit_text(f"Выберите виш-лист в который хотите добавить минифигурку",reply_markup=cansel)
     user = db_users.find_one(filter={
         "tg_id": action.from_user.id
     })
     names = ""
     for wish_list in user["wish_lists"]:
         names =  names + f"- `{wish_list['name']}` \n"
-    await action.answer(f"Ваши виш-листы: \n\n{names}",reply_markup=cansel,parse_mode="Markdown")
+    await action.message.edit_text(f"Ваши виш-листы: \n\n{names}",reply_markup=cansel,parse_mode="Markdown")
     await state.set_state(States.waiting_wishlist_name_to_add_minifigure)
+
+
 
 @minifigurs_router.message(States.waiting_wishlist_name_to_add_minifigure)
 async def process_name(action,state: FSMContext):

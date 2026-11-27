@@ -69,10 +69,10 @@ async def command_ping(action):
 
 
 
-@mydispatcher.message(F.text=="Отмена действия")
+@mydispatcher.callback_query(F.data == "btn_cansel")
 async def cansel(action,state: FSMContext):
     await state.clear()
-    await action.answer(f"Отмена действия",reply_markup=main_inline_keyboard)
+    await action.message.edit_text(f"Отмена действия",reply_markup=main_inline_keyboard)
 
 
 
