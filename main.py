@@ -50,9 +50,9 @@ async def command_start(action):
 # 1) Перевести главное меню на инлайн кнопки
 # 2) Перевести меню функций фигурок на инлайн кнопки
 
-@mydispatcher.message(F.text=="Главное меню")
+@mydispatcher.callback_query(F.data == "btn_main_menu")
 async def command_ping(action):
-    await action.answer(f"Главное меню",reply_markup=main_inline_keyboard)
+    await action.message.edit_text(f"Главное меню",reply_markup=main_inline_keyboard)
 
 
 
