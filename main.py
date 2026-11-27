@@ -57,9 +57,9 @@ async def command_ping(action):
 
 
 # --------------------------------МЕНЮ ФИГУРОК--------------------------------------
-@mydispatcher.message(F.text=="Функции минифигурок")
+@mydispatcher.callback_query(F.data == "btn_minifigures")
 async def command_ping(action):
-    await action.answer(f"Функции минифигурок",reply_markup=minifigures_keyboard)
+    await action.message.edit_text(f"Функции минифигурок",reply_markup=minifigures_keyboard)
 # --------------------------------КНОПОЧКИ ФИГУРОК----------------------------------
 
 
